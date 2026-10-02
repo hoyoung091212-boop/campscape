@@ -29,10 +29,16 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from 
 import { toast } from 'sonner';
 import { useTheme } from '../contexts/ThemeContext';
 
-// 네이버 지도 검색 URL 생성 함수 (주소 + 이름 조합)
-const getNaverMapUrl = (address: string, campName: string): string => {
-  const searchQuery = `${address.trim()} ${campName.trim()}`;
-  const encodedQuery = encodeURIComponent(searchQuery);
+// 네이버 지도 검색 URL 생성 함수
+// CampScape의 표시 이름과 네이버 지도 등록 이름이 다른 경우 검색어를 보정합니다.
+const NAVER_MAP_SEARCH_NAMES: Record<string, string> = {
+  '포천 가래골 힐링캠핑장': '가래골농원캠핑장',
+};
+
+const getNaverMapUrl = (_address: string, campName: string): string => {
+  const displayName = campName.trim();
+  const searchName = NAVER_MAP_SEARCH_NAMES[displayName] ?? displayName;
+  const encodedQuery = encodeURIComponent(searchName);
   return `https://map.naver.com/v5/search/${encodedQuery}`;
 };
 
