@@ -24,10 +24,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 
-// 네이버 지도 검색 URL 생성 함수 (주소 + 이름 조합)
-const getNaverMapUrl = (address: string, gemName: string): string => {
-  const searchQuery = `${address.trim()} ${gemName.trim()}`;
-  const encodedQuery = encodeURIComponent(searchQuery);
+// 네이버 지도 검색 URL 생성 함수 (캠핑장 이름만 검색)
+const getNaverMapUrl = (_address: string, gemName: string): string => {
+  const encodedQuery = encodeURIComponent(gemName.trim());
   return `https://map.naver.com/v5/search/${encodedQuery}`;
 };
 
